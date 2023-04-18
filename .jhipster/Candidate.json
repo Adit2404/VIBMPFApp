@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124059",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "candidate",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Candidate",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "atsUser",
+      "otherEntityRelationshipName": "candidate",
+      "ownerSide": true,
+      "relationshipName": "atsUser",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "experience",
+      "otherEntityRelationshipName": "candidate",
+      "relationshipName": "experience",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "education",
+      "otherEntityRelationshipName": "candidate",
+      "relationshipName": "education",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "atsApplication",
+      "otherEntityRelationshipName": "candidate",
+      "relationshipName": "atsApplication",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "remark",
+      "otherEntityRelationshipName": "candidate",
+      "relationshipName": "remark",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

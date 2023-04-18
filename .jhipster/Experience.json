@@ -1,0 +1,52 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124055",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "experience",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "company",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sdate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "edate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "not an ignored comment",
+  "jpaMetamodelFiltering": false,
+  "name": "Experience",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "candidate",
+      "otherEntityRelationshipName": "experience",
+      "relationshipName": "candidate",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

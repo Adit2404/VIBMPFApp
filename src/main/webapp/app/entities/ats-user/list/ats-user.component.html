@@ -1,0 +1,178 @@
+<div>
+  <h2 id="page-heading" data-cy="AtsUserHeading">
+    <span jhiTranslate="vibmpfApp.atsUser.home.title">Ats Users</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="vibmpfApp.atsUser.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-ats-user"
+        [routerLink]="['/ats-user/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="vibmpfApp.atsUser.home.createLabel"> Create a new Ats User </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="atsUsers?.length === 0">
+    <span jhiTranslate="vibmpfApp.atsUser.home.notFound">No Ats Users found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="atsUsers && atsUsers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="firstName">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.firstName">First Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="lastName">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.lastName">Last Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="email">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.email">Email</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="phoneNumber">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.phoneNumber">Phone Number</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="userId">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.userId">User Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="video">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.video">Video</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cv">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.cv">Cv</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="password">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.password">Password</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="usertype">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.usertype">Usertype</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="streetAddress">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.streetAddress">Street Address</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="postalCode">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.postalCode">Postal Code</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="city">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.city">City</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="stateProvince">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.atsUser.stateProvince">State Province</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let atsUser of atsUsers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/ats-user', atsUser.id, 'view']">{{ atsUser.id }}</a>
+          </td>
+          <td>{{ atsUser.firstName }}</td>
+          <td>{{ atsUser.lastName }}</td>
+          <td>{{ atsUser.email }}</td>
+          <td>{{ atsUser.phoneNumber }}</td>
+          <td>{{ atsUser.userId }}</td>
+          <td>
+            <a *ngIf="atsUser.video" (click)="openFile(atsUser.video, atsUser.videoContentType)" jhiTranslate="entity.action.open">Open</a>
+            <span *ngIf="atsUser.video">{{ atsUser.videoContentType }}, {{ byteSize(atsUser.video) }}</span>
+          </td>
+          <td>
+            <a *ngIf="atsUser.cv" (click)="openFile(atsUser.cv, atsUser.cvContentType)" jhiTranslate="entity.action.open">Open</a>
+            <span *ngIf="atsUser.cv">{{ atsUser.cvContentType }}, {{ byteSize(atsUser.cv) }}</span>
+          </td>
+          <td>{{ atsUser.password }}</td>
+          <td>{{ atsUser.usertype }}</td>
+          <td>{{ atsUser.streetAddress }}</td>
+          <td>{{ atsUser.postalCode }}</td>
+          <td>{{ atsUser.city }}</td>
+          <td>{{ atsUser.stateProvince }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/ats-user', atsUser.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/ats-user', atsUser.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(atsUser)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

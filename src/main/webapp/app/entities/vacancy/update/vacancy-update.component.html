@@ -1,0 +1,149 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-vacancy-heading" data-cy="VacancyCreateUpdateHeading" jhiTranslate="vibmpfApp.vacancy.home.createOrEditLabel">
+        Create or edit a Vacancy
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.dateOfPosting" for="field_dateOfPosting">Date Of Posting</label>
+          <div class="input-group">
+            <input
+              id="field_dateOfPosting"
+              data-cy="dateOfPosting"
+              type="text"
+              class="form-control"
+              name="dateOfPosting"
+              ngbDatepicker
+              #dateOfPostingDp="ngbDatepicker"
+              formControlName="dateOfPosting"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateOfPostingDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.employmentType" for="field_employmentType">Employment Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="employmentType"
+            id="field_employmentType"
+            data-cy="employmentType"
+            formControlName="employmentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.location" for="field_location">Location</label>
+          <input type="text" class="form-control" name="location" id="field_location" data-cy="location" formControlName="location" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.video" for="field_video">Video</label>
+          <div>
+            <div *ngIf="editForm.get('video')!.value" class="form-text text-danger clearfix">
+              <a
+                class="pull-start"
+                (click)="openFile(editForm.get('video')!.value!, editForm.get('videoContentType')!.value!)"
+                jhiTranslate="entity.action.open"
+                >Open</a
+              ><br />
+              <span class="pull-start">{{ editForm.get('videoContentType')!.value }}, {{ byteSize(editForm.get('video')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="editForm.patchValue({ video: undefined, videoContentType: undefined })"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_video"
+              data-cy="video"
+              (change)="setFileData($event, 'video', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="video" id="field_video" data-cy="video" formControlName="video" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="videoContentType"
+            id="field_videoContentType"
+            formControlName="videoContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.status" for="field_status">Status</label>
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.isOpen" for="field_isOpen">Is Open</label>
+          <input type="checkbox" class="form-check" name="isOpen" id="field_isOpen" data-cy="isOpen" formControlName="isOpen" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.vacancy.company" for="field_company">Company</label>
+          <select
+            class="form-control"
+            id="field_company"
+            data-cy="company"
+            name="company"
+            formControlName="company"
+            [compareWith]="compareCompany"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="companyOption" *ngFor="let companyOption of companiesSharedCollection">{{ companyOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

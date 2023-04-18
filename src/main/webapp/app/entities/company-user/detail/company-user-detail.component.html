@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="companyUser">
+      <h2 data-cy="companyUserDetailsHeading"><span jhiTranslate="vibmpfApp.companyUser.detail.title">Company User</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ companyUser.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.companyUser.atsUser">Ats User</span></dt>
+        <dd>
+          <div *ngIf="companyUser.atsUser">
+            <a [routerLink]="['/ats-user', companyUser.atsUser.id, 'view']">{{ companyUser.atsUser.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.companyUser.company">Company</span></dt>
+        <dd>
+          <div *ngIf="companyUser.company">
+            <a [routerLink]="['/company', companyUser.company.id, 'view']">{{ companyUser.company.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/company-user', companyUser.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

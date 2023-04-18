@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="vacancy">
+      <h2 data-cy="vacancyDetailsHeading"><span jhiTranslate="vibmpfApp.vacancy.detail.title">Vacancy</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ vacancy.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.name">Name</span></dt>
+        <dd>
+          <span>{{ vacancy.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.dateOfPosting">Date Of Posting</span></dt>
+        <dd>
+          <span>{{ vacancy.dateOfPosting | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.description">Description</span></dt>
+        <dd>
+          <span>{{ vacancy.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.employmentType">Employment Type</span></dt>
+        <dd>
+          <span>{{ vacancy.employmentType }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.location">Location</span></dt>
+        <dd>
+          <span>{{ vacancy.location }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.video">Video</span></dt>
+        <dd>
+          <div *ngIf="vacancy.video">
+            <a (click)="openFile(vacancy.video, vacancy.videoContentType)" jhiTranslate="entity.action.open">Open</a>
+            {{ vacancy.videoContentType }}, {{ byteSize(vacancy.video) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.status">Status</span></dt>
+        <dd>
+          <span>{{ vacancy.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.isOpen">Is Open</span></dt>
+        <dd>
+          <span>{{ vacancy.isOpen }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.vacancy.company">Company</span></dt>
+        <dd>
+          <div *ngIf="vacancy.company">
+            <a [routerLink]="['/company', vacancy.company.id, 'view']">{{ vacancy.company.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/vacancy', vacancy.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div>
+  <h2 id="page-heading" data-cy="VacancyHeading">
+    <span jhiTranslate="vibmpfApp.vacancy.home.title">Vacancies</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="vibmpfApp.vacancy.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-vacancy"
+        [routerLink]="['/vacancy/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="vibmpfApp.vacancy.home.createLabel"> Create a new Vacancy </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="vacancies?.length === 0">
+    <span jhiTranslate="vibmpfApp.vacancy.home.notFound">No Vacancies found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="vacancies && vacancies.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dateOfPosting">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.dateOfPosting">Date Of Posting</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.description">Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="employmentType">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.employmentType">Employment Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="location">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.location">Location</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="video">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.video">Video</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.status">Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="isOpen">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.isOpen">Is Open</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="company.id">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.vacancy.company">Company</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vacancy of vacancies; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/vacancy', vacancy.id, 'view']">{{ vacancy.id }}</a>
+          </td>
+          <td>{{ vacancy.name }}</td>
+          <td>{{ vacancy.dateOfPosting | formatMediumDate }}</td>
+          <td>{{ vacancy.description }}</td>
+          <td>{{ vacancy.employmentType }}</td>
+          <td>{{ vacancy.location }}</td>
+          <td>
+            <a *ngIf="vacancy.video" (click)="openFile(vacancy.video, vacancy.videoContentType)" jhiTranslate="entity.action.open">Open</a>
+            <span *ngIf="vacancy.video">{{ vacancy.videoContentType }}, {{ byteSize(vacancy.video) }}</span>
+          </td>
+          <td>{{ vacancy.status }}</td>
+          <td>{{ vacancy.isOpen }}</td>
+          <td>
+            <div *ngIf="vacancy.company">
+              <a [routerLink]="['/company', vacancy.company.id, 'view']">{{ vacancy.company.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/vacancy', vacancy.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/vacancy', vacancy.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(vacancy)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

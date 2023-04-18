@@ -1,0 +1,38 @@
+{
+  "vibmpfApp": {
+    "atsUser": {
+      "home": {
+        "title": "Ats Users",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Ats User",
+        "createOrEditLabel": "Create or edit a Ats User",
+        "notFound": "No Ats Users found"
+      },
+      "created": "A new Ats User is created with identifier {{ param }}",
+      "updated": "A Ats User is updated with identifier {{ param }}",
+      "deleted": "A Ats User is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Ats User {{ id }}?"
+      },
+      "detail": {
+        "title": "Ats User"
+      },
+      "id": "ID",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "userId": "User Id",
+      "video": "Video",
+      "cv": "Cv",
+      "password": "Password",
+      "usertype": "Usertype",
+      "streetAddress": "Street Address",
+      "postalCode": "Postal Code",
+      "city": "City",
+      "stateProvince": "State Province",
+      "candidate": "Candidate",
+      "companyUser": "Company User"
+    }
+  }
+}

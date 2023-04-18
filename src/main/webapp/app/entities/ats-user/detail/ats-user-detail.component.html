@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="atsUser">
+      <h2 data-cy="atsUserDetailsHeading"><span jhiTranslate="vibmpfApp.atsUser.detail.title">Ats User</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ atsUser.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ atsUser.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ atsUser.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.email">Email</span></dt>
+        <dd>
+          <span>{{ atsUser.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.phoneNumber">Phone Number</span></dt>
+        <dd>
+          <span>{{ atsUser.phoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.userId">User Id</span></dt>
+        <dd>
+          <span>{{ atsUser.userId }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.video">Video</span></dt>
+        <dd>
+          <div *ngIf="atsUser.video">
+            <a (click)="openFile(atsUser.video, atsUser.videoContentType)" jhiTranslate="entity.action.open">Open</a>
+            {{ atsUser.videoContentType }}, {{ byteSize(atsUser.video) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.cv">Cv</span></dt>
+        <dd>
+          <div *ngIf="atsUser.cv">
+            <a (click)="openFile(atsUser.cv, atsUser.cvContentType)" jhiTranslate="entity.action.open">Open</a>
+            {{ atsUser.cvContentType }}, {{ byteSize(atsUser.cv) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.password">Password</span></dt>
+        <dd>
+          <span>{{ atsUser.password }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.usertype">Usertype</span></dt>
+        <dd>
+          <span>{{ atsUser.usertype }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.streetAddress">Street Address</span></dt>
+        <dd>
+          <span>{{ atsUser.streetAddress }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.postalCode">Postal Code</span></dt>
+        <dd>
+          <span>{{ atsUser.postalCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.city">City</span></dt>
+        <dd>
+          <span>{{ atsUser.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsUser.stateProvince">State Province</span></dt>
+        <dd>
+          <span>{{ atsUser.stateProvince }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/ats-user', atsUser.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

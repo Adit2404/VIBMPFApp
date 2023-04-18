@@ -1,0 +1,105 @@
+
+
+// an ignored comment
+/** not an ignored comment */
+
+entity Experience{
+		id String,
+        title String,
+        company String,
+        location String,
+        sdate LocalDate,
+        edate LocalDate,
+        description String
+}
+
+entity Vacancy {
+	name String,
+	dateOfPosting LocalDate,
+    description String,
+    employmentType String,
+    location String,
+    video Blob,
+    status String,
+    isOpen Boolean
+}
+
+entity Company {
+	id String,
+ 	companySize Integer,
+ 	type String,
+    video Blob
+}
+
+entity Education{
+		id String,
+        title String,
+        company String,
+        location String,
+        sdate LocalDate,
+        edate LocalDate,
+        description String
+}
+
+entity Candidate {
+
+}
+
+entity CompanyUser {
+
+}
+
+entity  AtsUser {
+	firstName String,
+	lastName String,
+	email String,
+	phoneNumber String,
+    userId String,
+    video Blob,
+    cv Blob,
+    
+    password String,
+    usertype String,
+    streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+entity CompanyApplicationStatus {
+	name String
+}
+
+entity AtsApplication {
+	date LocalDate
+}
+
+entity Remark {
+	message String,
+    date LocalDate
+}
+
+relationship OneToOne {
+	Candidate to AtsUser,
+    CompanyUser to AtsUser
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+    Candidate to Experience
+    Company to Vacancy
+    Candidate to Education
+    Candidate to AtsApplication
+    Vacancy to AtsApplication
+    Company to CompanyUser
+    Company to CompanyApplicationStatus
+    CompanyApplicationStatus to AtsApplication
+    AtsApplication to Remark
+    CompanyUser to Remark
+    Candidate to Remark
+}
+
+
+
+// defining multiple oneToOne relationships
+

@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124103",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "ats_application",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AtsApplication",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "remark",
+      "otherEntityRelationshipName": "atsApplication",
+      "relationshipName": "remark",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "candidate",
+      "otherEntityRelationshipName": "atsApplication",
+      "relationshipName": "candidate",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "vacancy",
+      "otherEntityRelationshipName": "atsApplication",
+      "relationshipName": "vacancy",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "companyApplicationStatus",
+      "otherEntityRelationshipName": "atsApplication",
+      "relationshipName": "companyApplicationStatus",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

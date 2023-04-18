@@ -1,0 +1,33 @@
+{
+  "vibmpfApp": {
+    "vacancy": {
+      "home": {
+        "title": "Vacancies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Vacancy",
+        "createOrEditLabel": "Create or edit a Vacancy",
+        "notFound": "No Vacancies found"
+      },
+      "created": "A new Vacancy is created with identifier {{ param }}",
+      "updated": "A Vacancy is updated with identifier {{ param }}",
+      "deleted": "A Vacancy is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Vacancy {{ id }}?"
+      },
+      "detail": {
+        "title": "Vacancy"
+      },
+      "id": "ID",
+      "name": "Name",
+      "dateOfPosting": "Date Of Posting",
+      "description": "Description",
+      "employmentType": "Employment Type",
+      "location": "Location",
+      "video": "Video",
+      "status": "Status",
+      "isOpen": "Is Open",
+      "atsApplication": "Ats Application",
+      "company": "Company"
+    }
+  }
+}

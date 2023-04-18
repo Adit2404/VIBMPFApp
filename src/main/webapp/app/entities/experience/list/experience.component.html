@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="ExperienceHeading">
+    <span jhiTranslate="vibmpfApp.experience.home.title">Experiences</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="vibmpfApp.experience.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-experience"
+        [routerLink]="['/experience/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="vibmpfApp.experience.home.createLabel"> Create a new Experience </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="experiences?.length === 0">
+    <span jhiTranslate="vibmpfApp.experience.home.notFound">No Experiences found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="experiences && experiences.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.id">Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="title">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.title">Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="company">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.company">Company</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="location">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.location">Location</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sdate">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.sdate">Sdate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="edate">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.edate">Edate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.description">Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="candidate.id">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.experience.candidate">Candidate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let experience of experiences; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/experience', experience.id, 'view']">{{ experience.id }}</a>
+          </td>
+          <td>{{ experience.title }}</td>
+          <td>{{ experience.company }}</td>
+          <td>{{ experience.location }}</td>
+          <td>{{ experience.sdate | formatMediumDate }}</td>
+          <td>{{ experience.edate | formatMediumDate }}</td>
+          <td>{{ experience.description }}</td>
+          <td>
+            <div *ngIf="experience.candidate">
+              <a [routerLink]="['/candidate', experience.candidate.id, 'view']">{{ experience.candidate.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/experience', experience.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/experience', experience.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(experience)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

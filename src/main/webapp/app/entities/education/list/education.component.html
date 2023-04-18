@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="EducationHeading">
+    <span jhiTranslate="vibmpfApp.education.home.title">Educations</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="vibmpfApp.education.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-education"
+        [routerLink]="['/education/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="vibmpfApp.education.home.createLabel"> Create a new Education </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="educations?.length === 0">
+    <span jhiTranslate="vibmpfApp.education.home.notFound">No Educations found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="educations && educations.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.id">Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="title">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.title">Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="company">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.company">Company</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="location">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.location">Location</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sdate">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.sdate">Sdate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="edate">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.edate">Edate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.description">Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="candidate.id">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.education.candidate">Candidate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let education of educations; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/education', education.id, 'view']">{{ education.id }}</a>
+          </td>
+          <td>{{ education.title }}</td>
+          <td>{{ education.company }}</td>
+          <td>{{ education.location }}</td>
+          <td>{{ education.sdate | formatMediumDate }}</td>
+          <td>{{ education.edate | formatMediumDate }}</td>
+          <td>{{ education.description }}</td>
+          <td>
+            <div *ngIf="education.candidate">
+              <a [routerLink]="['/candidate', education.candidate.id, 'view']">{{ education.candidate.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/education', education.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/education', education.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(education)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

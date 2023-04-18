@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="company">
+      <h2 data-cy="companyDetailsHeading"><span jhiTranslate="vibmpfApp.company.detail.title">Company</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="vibmpfApp.company.id">Id</span></dt>
+        <dd>
+          <span>{{ company.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.company.companySize">Company Size</span></dt>
+        <dd>
+          <span>{{ company.companySize }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.company.type">Type</span></dt>
+        <dd>
+          <span>{{ company.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.company.video">Video</span></dt>
+        <dd>
+          <div *ngIf="company.video">
+            <a (click)="openFile(company.video, company.videoContentType)" jhiTranslate="entity.action.open">Open</a>
+            {{ company.videoContentType }}, {{ byteSize(company.video) }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/company', company.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

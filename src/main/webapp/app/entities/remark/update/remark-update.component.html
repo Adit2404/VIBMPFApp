@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-remark-heading" data-cy="RemarkCreateUpdateHeading" jhiTranslate="vibmpfApp.remark.home.createOrEditLabel">
+        Create or edit a Remark
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.remark.message" for="field_message">Message</label>
+          <input type="text" class="form-control" name="message" id="field_message" data-cy="message" formControlName="message" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.remark.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.remark.atsApplication" for="field_atsApplication">Ats Application</label>
+          <select
+            class="form-control"
+            id="field_atsApplication"
+            data-cy="atsApplication"
+            name="atsApplication"
+            formControlName="atsApplication"
+            [compareWith]="compareAtsApplication"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="atsApplicationOption" *ngFor="let atsApplicationOption of atsApplicationsSharedCollection">
+              {{ atsApplicationOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.remark.companyUser" for="field_companyUser">Company User</label>
+          <select
+            class="form-control"
+            id="field_companyUser"
+            data-cy="companyUser"
+            name="companyUser"
+            formControlName="companyUser"
+            [compareWith]="compareCompanyUser"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="companyUserOption" *ngFor="let companyUserOption of companyUsersSharedCollection">
+              {{ companyUserOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="vibmpfApp.remark.candidate" for="field_candidate">Candidate</label>
+          <select
+            class="form-control"
+            id="field_candidate"
+            data-cy="candidate"
+            name="candidate"
+            formControlName="candidate"
+            [compareWith]="compareCandidate"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="candidateOption" *ngFor="let candidateOption of candidatesSharedCollection">{{ candidateOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

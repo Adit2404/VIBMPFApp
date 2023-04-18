@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124058",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "education",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "company",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sdate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "edate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Education",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "candidate",
+      "otherEntityRelationshipName": "education",
+      "relationshipName": "candidate",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

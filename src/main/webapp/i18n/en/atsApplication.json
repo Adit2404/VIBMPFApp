@@ -1,0 +1,28 @@
+{
+  "vibmpfApp": {
+    "atsApplication": {
+      "home": {
+        "title": "Ats Applications",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Ats Application",
+        "createOrEditLabel": "Create or edit a Ats Application",
+        "notFound": "No Ats Applications found"
+      },
+      "created": "A new Ats Application is created with identifier {{ param }}",
+      "updated": "A Ats Application is updated with identifier {{ param }}",
+      "deleted": "A Ats Application is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Ats Application {{ id }}?"
+      },
+      "detail": {
+        "title": "Ats Application"
+      },
+      "id": "ID",
+      "date": "Date",
+      "remark": "Remark",
+      "candidate": "Candidate",
+      "vacancy": "Vacancy",
+      "companyApplicationStatus": "Company Application Status"
+    }
+  }
+}

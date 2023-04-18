@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124102",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "company_application_status",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CompanyApplicationStatus",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "atsApplication",
+      "otherEntityRelationshipName": "companyApplicationStatus",
+      "relationshipName": "atsApplication",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "company",
+      "otherEntityRelationshipName": "companyApplicationStatus",
+      "relationshipName": "company",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

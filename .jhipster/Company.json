@@ -1,0 +1,52 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124057",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "company",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companySize",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "video",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Company",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "vacancy",
+      "otherEntityRelationshipName": "company",
+      "relationshipName": "vacancy",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "companyUser",
+      "otherEntityRelationshipName": "company",
+      "relationshipName": "companyUser",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "companyApplicationStatus",
+      "otherEntityRelationshipName": "company",
+      "relationshipName": "companyApplicationStatus",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

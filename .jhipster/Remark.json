@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124104",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "remark",
+  "fields": [
+    {
+      "fieldName": "message",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Remark",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "atsApplication",
+      "otherEntityRelationshipName": "remark",
+      "relationshipName": "atsApplication",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "companyUser",
+      "otherEntityRelationshipName": "remark",
+      "relationshipName": "companyUser",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "candidate",
+      "otherEntityRelationshipName": "remark",
+      "relationshipName": "candidate",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

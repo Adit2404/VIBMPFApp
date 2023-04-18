@@ -1,0 +1,35 @@
+{
+  "applications": "*",
+  "changelogDate": "20230418124100",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "company_user",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CompanyUser",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "atsUser",
+      "otherEntityRelationshipName": "companyUser",
+      "ownerSide": true,
+      "relationshipName": "atsUser",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "remark",
+      "otherEntityRelationshipName": "companyUser",
+      "relationshipName": "remark",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "company",
+      "otherEntityRelationshipName": "companyUser",
+      "relationshipName": "company",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

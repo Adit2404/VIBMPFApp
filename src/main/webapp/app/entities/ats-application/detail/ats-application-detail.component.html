@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="atsApplication">
+      <h2 data-cy="atsApplicationDetailsHeading"><span jhiTranslate="vibmpfApp.atsApplication.detail.title">Ats Application</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ atsApplication.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsApplication.date">Date</span></dt>
+        <dd>
+          <span>{{ atsApplication.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsApplication.candidate">Candidate</span></dt>
+        <dd>
+          <div *ngIf="atsApplication.candidate">
+            <a [routerLink]="['/candidate', atsApplication.candidate.id, 'view']">{{ atsApplication.candidate.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsApplication.vacancy">Vacancy</span></dt>
+        <dd>
+          <div *ngIf="atsApplication.vacancy">
+            <a [routerLink]="['/vacancy', atsApplication.vacancy.id, 'view']">{{ atsApplication.vacancy.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.atsApplication.companyApplicationStatus">Company Application Status</span></dt>
+        <dd>
+          <div *ngIf="atsApplication.companyApplicationStatus">
+            <a [routerLink]="['/company-application-status', atsApplication.companyApplicationStatus.id, 'view']">{{
+              atsApplication.companyApplicationStatus.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/ats-application', atsApplication.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

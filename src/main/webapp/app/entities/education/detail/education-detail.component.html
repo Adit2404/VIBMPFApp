@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="education">
+      <h2 data-cy="educationDetailsHeading"><span jhiTranslate="vibmpfApp.education.detail.title">Education</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="vibmpfApp.education.id">Id</span></dt>
+        <dd>
+          <span>{{ education.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.education.title">Title</span></dt>
+        <dd>
+          <span>{{ education.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.education.company">Company</span></dt>
+        <dd>
+          <span>{{ education.company }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.education.location">Location</span></dt>
+        <dd>
+          <span>{{ education.location }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.education.sdate">Sdate</span></dt>
+        <dd>
+          <span>{{ education.sdate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.education.edate">Edate</span></dt>
+        <dd>
+          <span>{{ education.edate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.education.description">Description</span></dt>
+        <dd>
+          <span>{{ education.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="vibmpfApp.education.candidate">Candidate</span></dt>
+        <dd>
+          <div *ngIf="education.candidate">
+            <a [routerLink]="['/candidate', education.candidate.id, 'view']">{{ education.candidate.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/education', education.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

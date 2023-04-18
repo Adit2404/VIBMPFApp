@@ -1,0 +1,99 @@
+<div>
+  <h2 id="page-heading" data-cy="CompanyApplicationStatusHeading">
+    <span jhiTranslate="vibmpfApp.companyApplicationStatus.home.title">Company Application Statuses</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="vibmpfApp.companyApplicationStatus.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-company-application-status"
+        [routerLink]="['/company-application-status/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="vibmpfApp.companyApplicationStatus.home.createLabel"> Create a new Company Application Status </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="companyApplicationStatuses?.length === 0">
+    <span jhiTranslate="vibmpfApp.companyApplicationStatus.home.notFound">No Company Application Statuses found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="companyApplicationStatuses && companyApplicationStatuses.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.companyApplicationStatus.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="company.id">
+            <div class="d-flex">
+              <span jhiTranslate="vibmpfApp.companyApplicationStatus.company">Company</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let companyApplicationStatus of companyApplicationStatuses; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/company-application-status', companyApplicationStatus.id, 'view']">{{ companyApplicationStatus.id }}</a>
+          </td>
+          <td>{{ companyApplicationStatus.name }}</td>
+          <td>
+            <div *ngIf="companyApplicationStatus.company">
+              <a [routerLink]="['/company', companyApplicationStatus.company.id, 'view']">{{ companyApplicationStatus.company.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/company-application-status', companyApplicationStatus.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/company-application-status', companyApplicationStatus.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(companyApplicationStatus)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
